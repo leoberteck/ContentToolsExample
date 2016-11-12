@@ -4,7 +4,7 @@ var mongoose = require('mongoose')
 var cors = require('cors')
 
 //Database setup
-var db = mongoose.connect("mongodb://localhost:27017/contentstore", { safe: true })
+var db = mongoose.connect(process.env.MONGO_URL || process.env.MONGODB_URI || "mongodb://localhost:27017/contentstore", { safe: true })
 var Schema = mongoose.Schema
 var contentSchema = new Schema({
     main_header : String,
