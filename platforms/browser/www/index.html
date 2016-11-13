@@ -1,116 +1,79 @@
 <!DOCTYPE html>
 <head>
-    <title>Editor</title>
-    <link rel="stylesheet" type="text/css" href="assets/content-tools.min.css">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Editor de páginas</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="view/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Theme CSS -->
+    <link href="view/css/clean-blog.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="view/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
     <style>
-        /* Alignment styles for images, videos and iframes in editable regions */
-
-        /* Center (default) */
-        [data-editable] iframe,
-        [data-editable] image,
-        [data-editable] [data-ce-tag=img],
-        [data-editable] img,
-        [data-editable] video {
-            clear: both;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-            max-width: 100%;
+        a{
+            color:#286090;
         }
-
-        /* Left align */
-        [data-editable] .align-left {
-            clear: initial;
-            float: left;
-            margin-right: 0.5em;
+        a:hover{
+            color:#9e1eea;
+            text-decoration: none;
         }
-
-        /* Right align */
-        [data-editable].align-right {
-            clear: initial;
-            float: right;
-            margin-left: 0.5em;
-        }
-
-        /* Alignment styles for text in editable regions */
-        [data-editable] .text-center {
-            text-align: center;
-        }
-
-        [data-editable] .text-left {
-            text-align: left;
-        }
-
-        [data-editable] .text-right {
-            text-align: right;
-        }
-        
-        .author {
-            font-style: italic;
-            font-weight: bold;
-        }
-
-        editor = ContentTools.EditorApp.get();
-        editor.init('*[data-editable]', 'data-name');
-
-        editor.addEventListener('saved', function (ev) {
-            var name, payload, regions, xhr;
-
-            // Check that something changed
-            regions = ev.detail().regions;
-            if (Object.keys(regions).length == 0) {
-                return;
-            }
-
-            // Set the editor as busy while we save our changes
-            this.busy(true);
-
-            // Collect the contents of each region into a FormData instance
-            payload = new FormData();
-            for (name in regions) {
-                if (regions.hasOwnProperty(name)) {
-                    payload.append(name, regions[name]);
-                }
-            }
-
-            // Send the update content to the server to be saved
-            function onStateChange(ev) {
-                // Check if the request is finished
-                if (ev.target.readyState == 4) {
-                    editor.busy(false);
-                    if (ev.target.status == '200') {
-                        // Save was successful, notify the user with a flash
-                        new ContentTools.FlashUI('ok');
-                    } else {
-                        // Save failed, notify the user with a flash
-                        new ContentTools.FlashUI('no');
-                    }
-                }
-            };
-
-            xhr = new XMLHttpRequest();
-            xhr.addEventListener('readystatechange', onStateChange);
-            xhr.open('POST', '/save-my-page');
-            xhr.send(payload);
-        });
-
-
     </style>
 </head>
 <body>
-    <div data-editable data-name="main-content">
-
-        <video width="320" height="240" controls>
-          <source src="movie.mp4" type="video/mp4">
-        </video>
-
-        <blockquote>
-            Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live.
-        </blockquote>
-        <p>John F. Woods</p>
-
-        
-    </div>
-    <script src="assets/content-tools.min.js"></script>
-    <script src="assets/editor.js"></script>
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top" >
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll pull-right">
+                <a class="navbar-brand" href="#">Editor de páginas</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-color: #5198ce">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading" data-editable data-name="main_header" style="text-align:center">
+                        <h1>Edite ou <a href="view/post.html" class="list-link" >CRIE</a> sua própria página</h1>
+                        <div id="list" style="margin-top:50px">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <h3>Desenvolvido por: Leonardo B. Stábile e André Limieri</h3>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- jQuery -->
+    <script src="view/js/jquery.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="view/js/bootstrap.min.js"></script>
+    <!-- Contact Form JavaScript -->
+    <script src="view/js/jqBootstrapValidation.js"></script>
+    <script src="view/js/contact_me.js"></script>
+    <!-- Theme JavaScript -->
+    <script src="view/js/clean-blog.min.js"></script>
+    <script src="view/js/index.js"></script>
 </body>
